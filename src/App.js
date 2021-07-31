@@ -1,24 +1,165 @@
-import logo from './logo.svg';
-import './App.css';
+import { Grid, Paper, Typography } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { useState } from "react";
+import Switch from "@material-ui/core/Switch";
+import { makeStyles } from "@material-ui/core/styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import DashboardCard from "./components/Card";
+import OverViewCard from "./components/OverViewCard";
+import { FACEBOOK, INSTAGRAM, TWITTER, YOUTUBE } from "./constants";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(6),
+  },
+}));
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const classes = useStyles();
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+    },
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper className={classes.root}>
+        <Grid container>
+          <Grid item xs={10}>
+            <Typography variant="h4">Social Media Dashboard</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <FormControlLabel
+              control={
+                <Switch
+                  title="Dark Mode"
+                  checked={darkMode}
+                  onChange={() => setDarkMode(!darkMode)}
+                />
+              }
+              label="Dark Mode"
+              labelPlacement="start"
+            />
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6">Total Followers: 23,004</Typography>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <DashboardCard
+              icon={FACEBOOK}
+              username="@nathanf"
+              totalFollowersCount="1987"
+              todayFollowersCount="12"
+            ></DashboardCard>
+          </Grid>
+          <Grid item xs={3}>
+            <DashboardCard
+              icon={TWITTER}
+              username="@nathanf"
+              totalFollowersCount="1044"
+              todayFollowersCount="99"
+            ></DashboardCard>
+          </Grid>
+          <Grid item xs={3}>
+            <DashboardCard
+              icon={INSTAGRAM}
+              username="@realnathanf"
+              totalFollowersCount="11k"
+              todayFollowersCount="1099"
+            ></DashboardCard>
+          </Grid>
+          <Grid item xs={3}>
+            <DashboardCard
+              icon={YOUTUBE}
+              username="Nathan F."
+              totalFollowersCount="8239"
+              todayFollowersCount="144"
+            ></DashboardCard>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Paper>
+        <Grid container>
+          <Grid item xs={12}>
+            Overview - Today
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Page Views"
+              icon={FACEBOOK}
+              count="100"
+              ratio="3"
+            ></OverViewCard>
+          </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Likes"
+              icon={FACEBOOK}
+              count="52"
+              ratio="2"
+            ></OverViewCard>
+          </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Likes"
+              icon={INSTAGRAM}
+              count="5462"
+              ratio="2257"
+            ></OverViewCard>
+          </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Profile Views"
+              icon={INSTAGRAM}
+              count="100"
+              ratio="3"
+            ></OverViewCard>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <OverViewCard
+                heading="Retweets"
+                icon={TWITTER}
+                count="117"
+                ratio="303"
+              ></OverViewCard>
+            </Grid>
+            <Grid item xs={3}>
+              <OverViewCard
+                heading="Likes"
+                icon={TWITTER}
+                count="507"
+                ratio="553"
+              ></OverViewCard>
+            </Grid>
+            <Grid item xs={3}>
+              <OverViewCard
+                heading="Likes"
+                icon={YOUTUBE}
+                count="107"
+                ratio="19"
+              ></OverViewCard>
+            </Grid>
+            <Grid item xs={3}>
+              <OverViewCard
+                heading="Total Views"
+                icon={YOUTUBE}
+                count="1407"
+                ratio="12"
+              ></OverViewCard>
+            </Grid>
+          </Grid>
+      </Paper>
+    </ThemeProvider>
   );
 }
 

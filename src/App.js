@@ -10,22 +10,41 @@ import OverViewCard from "./components/OverViewCard";
 import { FACEBOOK, INSTAGRAM, TWITTER, YOUTUBE } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: (props) => ({
     flexGrow: 1,
+    margin: 0,
     padding: theme.spacing(6),
+    backgroundColor: props.darkMode ? "#1E202A" : "#fff",
+    color: props.darkMode ? "#fff" : "#1E202A",
+  }),
+  bottomContainer: {
+    marginTop: 20,
   },
 }));
+const light = {
+  palette: {
+    type: "light",
+    background: {
+      paper: "#F5F7FF",
+      default: "#fff",
+    },
+  },
+};
+const dark = {
+  palette: {
+    type: "dark",
+    background: {
+      default: "#000",
+    },
+  },
+};
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const classes = useStyles();
-  const theme = createMuiTheme({
-    palette: {
-      type: darkMode ? "dark" : "light",
-    },
-  });
+  const classes = useStyles({ darkMode });
+  const theme = createMuiTheme(darkMode ? dark : light);
   return (
     <ThemeProvider theme={theme}>
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <Grid container>
           <Grid item xs={10}>
             <Typography variant="h4">Social Media Dashboard</Typography>
@@ -83,11 +102,10 @@ function App() {
             ></DashboardCard>
           </Grid>
         </Grid>
-      </Paper>
-      <Paper>
-        <Grid container>
+
+        <Grid container className={classes.bottomContainer}>
           <Grid item xs={12}>
-            Overview - Today
+            <Typography variant="h5">Overview - Today</Typography>
           </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -125,40 +143,40 @@ function App() {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <OverViewCard
-                heading="Retweets"
-                icon={TWITTER}
-                count="117"
-                ratio="303"
-              ></OverViewCard>
-            </Grid>
-            <Grid item xs={3}>
-              <OverViewCard
-                heading="Likes"
-                icon={TWITTER}
-                count="507"
-                ratio="553"
-              ></OverViewCard>
-            </Grid>
-            <Grid item xs={3}>
-              <OverViewCard
-                heading="Likes"
-                icon={YOUTUBE}
-                count="107"
-                ratio="19"
-              ></OverViewCard>
-            </Grid>
-            <Grid item xs={3}>
-              <OverViewCard
-                heading="Total Views"
-                icon={YOUTUBE}
-                count="1407"
-                ratio="12"
-              ></OverViewCard>
-            </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Retweets"
+              icon={TWITTER}
+              count="117"
+              ratio="303"
+            ></OverViewCard>
           </Grid>
-      </Paper>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Likes"
+              icon={TWITTER}
+              count="507"
+              ratio="553"
+            ></OverViewCard>
+          </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Likes"
+              icon={YOUTUBE}
+              count="107"
+              ratio="19"
+            ></OverViewCard>
+          </Grid>
+          <Grid item xs={3}>
+            <OverViewCard
+              heading="Total Views"
+              icon={YOUTUBE}
+              count="1407"
+              ratio="12"
+            ></OverViewCard>
+          </Grid>
+        </Grid>
+      </div>
     </ThemeProvider>
   );
 }

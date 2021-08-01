@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { useState } from "react";
